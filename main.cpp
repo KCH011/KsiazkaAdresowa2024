@@ -348,7 +348,52 @@ void dodajAdresata(vector<Adresat> &adresaci)
     dopiszAdresataDoPliku(adresat);
 }
 
+ void usunAdresata(vector<Adresat> &adresaci)
+{
+    int idUsuwanegoAdresata = 0;
+    char znak;
+    bool czyIstniejeAdresat = false;
 
+    system("cls");
+    if (!adresaci.empty())
+    {
+        cout << ">>> USUWANIE WYBRANEJ OSOBY <<<" << endl << endl;
+        cout << "Podaj numer ID adresata ktorego chcesz USUNAC: ";
+        idUsuwanegoAdresata = wczytajLiczbeCalkowita();
+
+        for (vector<Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
+        {
+            if (itr->id == idUsuwanegoAdresata)
+            {
+                czyIstniejeAdresat = true;
+                cout << endl << endl << "Potwierdz naciskajac klawisz 't': ";
+                znak = wczytajZnak();
+                if (znak == 't')
+                {
+                    adresaci.erase(itr);
+                    cout << endl << endl << "Szukany adresat zostal USUNIETY" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                }
+                else
+                {
+                    cout << endl << endl << "Wybrany adresat NIE zostal usuniety" << endl << endl;
+                    break;
+                }
+            }
+        }
+        if (czyIstniejeAdresat == false)
+        {
+            cout << endl << "Nie ma takiego adresata w ksiazce adresowej" << endl << endl;
+        }
+    }
+    else
+    {
+        cout << "Ksiazka adresowa jest pusta" << endl << endl;
+    }
+
+    system("pause");
+}
 
 
 void zakonczProgram()
@@ -372,6 +417,7 @@ int main()
         cout << "2. Wyszukaj po imieniu" << endl;
         cout << "3. Wyszukaj po nazwisku" << endl;
         cout << "4. Wyswietl wszystkich adresatow" << endl;
+        cout << "5. Usun adresata" << endl;
         cout << "9. Zakoncz program" << endl << endl;
         cout << "Twoj wybor: ";
         wybor = wczytajZnak();
@@ -391,7 +437,7 @@ int main()
             wypiszWszystkichAdresatow(adresaci);
             break;
         case '5':
-
+            usunAdresata(adresaci);
             break;
         case '6':
 
