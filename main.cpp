@@ -348,6 +348,90 @@ void dodajAdresata(vector<Adresat> &adresaci)
     dopiszAdresataDoPliku(adresat);
 }
 
+void edytujAdresata(vector<Adresat> &adresaci)
+{
+    int idWybranegoAdresata = 0;
+    char wybor;
+    bool czyIstniejeAdresat = false;
+
+    system("cls");
+    if (!adresaci.empty())
+    {
+        cout << ">>> EDYCJA WYBRANEGO ADRESATA <<<" << endl << endl;
+        cout << "Podaj numer ID adresata u ktorego chcesz zmienic dane: ";
+        idWybranegoAdresata = wczytajLiczbeCalkowita();
+
+        for (vector<Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
+        {
+            if (itr->id == idWybranegoAdresata)
+            {
+                czyIstniejeAdresat = true;
+
+                cout << endl << "Ktore dane zaktualizowac: " << endl;
+                cout << "1 - Imie" << endl;
+                cout << "2 - Nazwisko" << endl;
+                cout << "3 - Numer telefonu" << endl;
+                cout << "4 - Email" << endl;
+                cout << "5 - Adres" << endl;
+                cout << "6 - Powrot " << endl;
+                cout << endl << "Wybierz 1-6: ";
+                wybor = wczytajZnak();
+
+                switch (wybor)
+                {
+                case '1':
+                    cout << "Podaj nowe imie: ";
+                    itr->imie = wczytajLinie();
+                    itr->imie = zamienPierwszaLitereNaDuzaAPozostaleNaMale(itr->imie);
+                    cout << endl << "Imie zostalo zmienione" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                case '2':
+                    cout << "Podaj nowe nazwisko: ";
+                    itr->nazwisko = wczytajLinie();
+                    itr->nazwisko = zamienPierwszaLitereNaDuzaAPozostaleNaMale(itr->nazwisko);
+                    cout << endl << "Nazwisko zostalo zmienione" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                case '3':
+                    cout << "Podaj nowy numer telefonu: ";
+                    itr->numerTelefonu = wczytajLinie();
+                    cout << endl << "Numer telefonu zostal zmieniony" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                case '4':
+                    cout << "Podaj nowy email: ";
+                    itr->email = wczytajLinie();
+                    cout << endl << "Email zostal zmieniony" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                case '5':
+                    cout << "Podaj nowy adres zamieszkania: ";
+                    itr->adres = wczytajLinie();
+                    cout << endl << "Adres zostal zmieniony" << endl << endl;
+                    zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+                    break;
+                case '6':
+                    cout << endl << "Powrot do menu glownego" << endl << endl;
+                    break;
+                default:
+                    cout << endl << "Nie ma takiej opcji w menu! Powrot do menu glownego." << endl << endl;
+                    break;
+                }
+            }
+        }
+        if (czyIstniejeAdresat == false)
+        {
+            cout << endl << "Nie ma takiego adresata w ksiazce adresowej." << endl << endl;
+        }
+    }
+    else
+    {
+        cout << "Ksiazka adresowa jest pusta." << endl << endl;
+    }
+    system("pause");
+}
+
  void usunAdresata(vector<Adresat> &adresaci)
 {
     int idUsuwanegoAdresata = 0;
@@ -418,6 +502,7 @@ int main()
         cout << "3. Wyszukaj po nazwisku" << endl;
         cout << "4. Wyswietl wszystkich adresatow" << endl;
         cout << "5. Usun adresata" << endl;
+        cout << "6. Edytuj adresata" << endl;
         cout << "9. Zakoncz program" << endl << endl;
         cout << "Twoj wybor: ";
         wybor = wczytajZnak();
@@ -440,7 +525,7 @@ int main()
             usunAdresata(adresaci);
             break;
         case '6':
-
+            edytujAdresata(adresaci);
             break;
         case '9':
             zakonczProgram();
