@@ -140,6 +140,29 @@ void wczytajAdresatowZPliku(vector<Adresat> &adresaci)
     }
 }
 
+void wypiszWszystkichAdresatow(vector<Adresat> &adresaci)
+{
+    system("cls");
+    if (!adresaci.empty())
+    {
+        for (vector<Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
+        {
+            cout << "Id:                 " << itr->id << endl;
+            cout << "Imie:               " << itr->imie << endl;
+            cout << "Nazwisko:           " << itr->nazwisko << endl;
+            cout << "Numer telefonu:     " << itr->numerTelefonu << endl;
+            cout << "Email:              " << itr->email << endl;
+            cout << "Adres:              " << itr->adres << endl << endl;
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "Ksiazka adresowa jest pusta." << endl << endl;
+    }
+
+    system("pause");
+}
 
 void dopiszAdresataDoPliku(Adresat adresat)
 {
@@ -348,6 +371,7 @@ int main()
         cout << "1. Dodaj adresata" << endl;
         cout << "2. Wyszukaj po imieniu" << endl;
         cout << "3. Wyszukaj po nazwisku" << endl;
+        cout << "4. Wyswietl wszystkich adresatow" << endl;
         cout << "9. Zakoncz program" << endl << endl;
         cout << "Twoj wybor: ";
         wybor = wczytajZnak();
@@ -364,7 +388,7 @@ int main()
             wyszukajAdresatowPoNazwisku(adresaci);
             break;
         case '4':
-
+            wypiszWszystkichAdresatow(adresaci);
             break;
         case '5':
 
